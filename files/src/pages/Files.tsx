@@ -1,5 +1,7 @@
+import { FileList } from "../components/FileList";
+
 const Files = () => {
-  return <div>Files</div>;
+  return <FileList />;
 };
 
 export default Files;

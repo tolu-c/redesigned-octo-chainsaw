@@ -13,3 +13,9 @@ export interface NavItemProps {
 export interface SideBarProps {
   onClose: () => void;
 }
+
+export interface FileItemProps {
+  name: string;
+  url: string;
+  type: string;
+}
