@@ -31,4 +31,9 @@ export const fileData: FileItemProps[] = [
     url: "https://res.cloudinary.com/d-a-r-k-c-o-d-e/image/upload/v1656332470/portfolio/images/dog_omfhaw.jpg",
     type: "jpg",
   },
+  {
+    name: "Birth Certificate 6",
+    url: "https://res.cloudinary.com/d-a-r-k-c-o-d-e/image/upload/v1656332470/portfolio/images/dog_omfhaw.jpg",
+    type: "jpg",
+  },
 ];

@@ -1,5 +1,7 @@
+import { UploadPage } from "../components/UploadPage";
+
 const Upload = () => {
-  return <div>Upload</div>;
+  return <UploadPage />;
 };
 
 export default Upload;

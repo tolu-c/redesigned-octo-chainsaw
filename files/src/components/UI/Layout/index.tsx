@@ -8,9 +8,9 @@ export const Layout: FC<LayoutProps> = ({ children }) => {
   const [openSidebar, setSidebar] = useState<boolean>(false);
 
   return (
-    <div className="w-full grid grid-cols-1 md:grid-cols-8 lg:grid-cols-6 h-screen">
+    <div className="w-full grid grid-cols-1 md:grid-cols-8 lg:grid-cols-6 h-screen relative">
       <Navbar />
-      <div className="col-auto md:col-span-6 lg:col-span-5 flex flex-col">
+      <div className="col-auto md:col-span-6 lg:col-span-5 flex flex-col h-full">
         <div className="w-full h-16 border-b border-slate-200 flex justify-between items-center p-3">
           <span
             className="md:hidden text-slate-800 cursor-pointer"
@@ -25,7 +25,7 @@ export const Layout: FC<LayoutProps> = ({ children }) => {
             Hello, <span className="text-slate-800 capitalize">user</span>
           </p>
         </div>
-        <div className="w-full p-3">{children}</div>
+        <div className="w-full p-3 h-full">{children}</div>
 
         {openSidebar && (
           <Sidebar

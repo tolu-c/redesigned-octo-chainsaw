@@ -4,7 +4,7 @@ export const FileDetail = ({ fileID }: { fileID: string }) => {
   const filteredFile = fileData.filter((file) => file.name === fileID)[0];
 
   return (
-    <div>
+    <div className="p-4">
       <img src={filteredFile.url} alt={filteredFile.name} />
       <a
         href={filteredFile.url}

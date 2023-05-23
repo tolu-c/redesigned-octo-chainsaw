@@ -19,3 +19,9 @@ export interface FileItemProps {
   url: string;
   type: string;
 }
+
+export interface ButtonProps {
+  type: "button" | "submit";
+  title: string;
+  onClick?: () => void;
+}

@@ -12,7 +12,7 @@ import { NavItem } from "./Navbar";
 
 export const Sidebar: FC<SideBarProps> = ({ onClose }) => {
   const content = (
-    <div className="absolute top-0 left-0 w-full h-full bg-gray-600 flex">
+    <div className="fixed top-0 left-0 w-full h-full bg-gray-600 flex">
       <span
         className="cursor-pointer order-last w-max p-3 text-gray-300 bg-gray-700/70 rounded-full h-max absolute top-3 right-3"
         onClick={onClose}

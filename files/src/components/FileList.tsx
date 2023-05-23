@@ -1,5 +1,6 @@
 import { fileData } from "../data/files";
 import { FileItem } from "./FileItem";
+import { UploadPlus } from "./UI/UploadPlus";
 
 export const FileList = () => {
   return (
@@ -12,6 +13,7 @@ export const FileList = () => {
           type={file.type}
         />
       ))}
+      <UploadPlus />
     </div>
   );
 };
