@@ -11,11 +11,10 @@ export const LoginPage = () => {
   const handleLogin = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const formData = {
-      username: usernameRef.current?.value,
-      password: passwordRef.current?.value,
+      username: usernameRef.current!.value,
+      password: passwordRef.current!.value,
     };
-    console.log(formData);
-    login();
+    login(formData);
   };
 
   return (

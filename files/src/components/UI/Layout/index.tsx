@@ -29,7 +29,7 @@ export const Layout: FC<LayoutProps> = ({ children }) => {
               {isLoggedIn
                 ? user?.username
                   ? user.username
-                  : "user"
+                  : "..."
                 : "Random user"}
             </span>
           </p>

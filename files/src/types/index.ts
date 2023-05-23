@@ -26,15 +26,30 @@ export interface ButtonProps {
   onClick?: () => void;
 }
 
-export interface UserProps {
+export interface UserToken {
+  token_type: string;
+  exp: string;
+  iat: string;
+  user_id: string;
   username: string;
   email: string;
 }
+
+export interface LoginData {
+  username: string;
+  password: string;
+}
+export interface RegisterData {
+  username: string;
+  email: string;
+  password: string;
+}
 export interface AuthContextType {
   isLoggedIn: boolean;
-  login: () => void;
+  login: (data: LoginData) => void;
   logout: () => void;
-  user: UserProps | null;
+  user: UserToken | null;
+  authToken: string | null;
 }
 
 export interface ProtectedRoutesProps {
