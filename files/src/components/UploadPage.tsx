@@ -53,7 +53,9 @@ export const UploadPage = () => {
             onChange={handleFileChange}
           />
         </div>
-        <Button type="submit" title="Upload File" />
+        <div className="w-1/2 md:w-1/4">
+          <Button type="submit" title="Upload File" />
+        </div>
       </form>
     </div>
   );
