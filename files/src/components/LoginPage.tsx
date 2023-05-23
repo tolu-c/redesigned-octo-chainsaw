@@ -1,10 +1,12 @@
-import { FormEvent, useRef } from "react";
+import { FormEvent, useRef, useContext } from "react";
 import { Button } from "./UI/Form/Button";
 import { Link } from "react-router-dom";
+import { AuthContext } from "../context/authContext";
 
 export const LoginPage = () => {
   const usernameRef = useRef<HTMLInputElement>(null);
   const passwordRef = useRef<HTMLInputElement>(null);
+  const { login } = useContext(AuthContext);
 
   const handleLogin = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -13,6 +15,7 @@ export const LoginPage = () => {
       password: passwordRef.current?.value,
     };
     console.log(formData);
+    login();
   };
 
   return (

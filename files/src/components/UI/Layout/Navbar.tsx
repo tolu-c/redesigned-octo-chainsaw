@@ -1,4 +1,4 @@
-import { FC, useState } from "react";
+import { FC, useContext } from "react";
 import { NavLink } from "react-router-dom";
 import { NavItemProps } from "../../../types";
 import {
@@ -7,9 +7,10 @@ import {
   FolderPlusIcon,
   ArrowRightOnRectangleIcon,
 } from "@heroicons/react/24/outline";
+import { AuthContext } from "../../../context/authContext";
 
 export const Navbar = () => {
-  const [isAuthenticated] = useState<boolean>(false);
+  const { isLoggedIn, logout } = useContext(AuthContext);
 
   return (
     <div className="hidden md:flex md:col-span-2 lg:col-span-1 bg-gray-900 h-full flex-col py-4 px-2 gap-12">
@@ -32,12 +33,14 @@ export const Navbar = () => {
         />
       </ul>
       <div className="order-last">
-        {isAuthenticated ? (
-          <NavItem
-            title="Logout"
-            href="logout"
-            icon={<ArrowRightOnRectangleIcon className="w-6 h-6" />}
-          />
+        {isLoggedIn ? (
+          <span onClick={logout}>
+            <NavItem
+              title="Logout"
+              href="/"
+              icon={<ArrowRightOnRectangleIcon className="w-6 h-6" />}
+            />
+          </span>
         ) : (
           <NavItem
             title="Login"

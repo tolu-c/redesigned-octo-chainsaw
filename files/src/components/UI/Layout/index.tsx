@@ -1,11 +1,13 @@
-import { FC, useState } from "react";
+import { FC, useState, useContext } from "react";
 import { LayoutProps } from "../../../types";
 import { Bars3Icon } from "@heroicons/react/24/solid";
 import { Navbar } from "./Navbar";
 import { Sidebar } from "./Sidebar";
+import { AuthContext } from "../../../context/authContext";
 
 export const Layout: FC<LayoutProps> = ({ children }) => {
   const [openSidebar, setSidebar] = useState<boolean>(false);
+  const { isLoggedIn, user } = useContext(AuthContext);
 
   return (
     <div className="w-full grid grid-cols-1 md:grid-cols-8 lg:grid-cols-6 h-screen relative">
@@ -22,7 +24,14 @@ export const Layout: FC<LayoutProps> = ({ children }) => {
           </span>
           <h2>Your Files</h2>
           <p className="text-sm font-medium text-slate-600">
-            Hello, <span className="text-slate-800 capitalize">user</span>
+            Hello,{" "}
+            <span className="text-slate-800 capitalize">
+              {isLoggedIn
+                ? user?.username
+                  ? user.username
+                  : "user"
+                : "Random user"}
+            </span>
           </p>
         </div>
         <div className="w-full p-3 h-full">{children}</div>

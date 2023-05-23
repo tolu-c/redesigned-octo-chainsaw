@@ -25,3 +25,18 @@ export interface ButtonProps {
   title: string;
   onClick?: () => void;
 }
+
+export interface UserProps {
+  username: string;
+  email: string;
+}
+export interface AuthContextType {
+  isLoggedIn: boolean;
+  login: () => void;
+  logout: () => void;
+  user: UserProps | null;
+}
+
+export interface ProtectedRoutesProps {
+  children: ReactNode;
+}
