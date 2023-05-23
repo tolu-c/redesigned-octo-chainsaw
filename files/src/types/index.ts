@@ -35,6 +35,11 @@ export interface UserToken {
   email: string;
 }
 
+export interface AuthTokenProps {
+  access: string;
+  refresh: string;
+}
+
 export interface LoginData {
   username: string;
   password: string;
@@ -45,11 +50,10 @@ export interface RegisterData {
   password: string;
 }
 export interface AuthContextType {
-  isLoggedIn: boolean;
   login: (data: LoginData) => void;
   logout: () => void;
   user: UserToken | null;
-  authToken: string | null;
+  authToken: AuthTokenProps | null;
 }
 
 export interface ProtectedRoutesProps {

@@ -13,8 +13,8 @@ const Upload = lazy(() => import("./pages/Upload"));
 const PageNotFound = lazy(() => import("./pages/PageNotFound"));
 
 const ProtectedRoute = ({ children }: { children: ReactNode }) => {
-  const { isLoggedIn } = useContext(AuthContext);
-  if (!isLoggedIn) {
+  const { user } = useContext(AuthContext);
+  if (!user) {
     return <Navigate to="/login" replace />;
   } else {
     return <>{children}</>;

@@ -1,22 +1,40 @@
-import { createContext, ReactNode, useState } from "react";
-import { AuthContextType, LoginData } from "../types";
+import {
+  createContext,
+  ReactNode,
+  useCallback,
+  useEffect,
+  useState,
+} from "react";
+import {
+  AuthContextType,
+  AuthTokenProps,
+  LoginData,
+  UserToken,
+} from "../types";
 import { useNavigate } from "react-router-dom";
 import jwt_decode from "jwt-decode";
 
 export const AuthContext = createContext<AuthContextType>({
-  isLoggedIn: false,
   login: () => {},
   logout: () => {},
   user: null,
   authToken: null,
 });
+
 const API = process.env.REACT_APP_API;
 
 export const AuthContextProvider = ({ children }: { children: ReactNode }) => {
+  const authTokensString = localStorage.getItem("authTokens");
+
   const navigate = useNavigate();
-  const [userLoggedIn, setUserLoggedIn] = useState<boolean>(false);
-  const [user, setUser] = useState(null);
-  const [authTokens, setAuthTokens] = useState<string | null>(null);
+
+  const [user, setUser] = useState<UserToken | null>(() =>
+    authTokensString ? jwt_decode(authTokensString) : null
+  );
+  const [authTokens, setAuthTokens] = useState<AuthTokenProps | null>(() =>
+    authTokensString ? JSON.parse(authTokensString) : null
+  );
+  const [loading, setLoading] = useState<boolean>(true);
 
   const loginHandler = async (data: LoginData) => {
     const response = await fetch(`${API}/token/`, {
@@ -26,23 +44,58 @@ export const AuthContextProvider = ({ children }: { children: ReactNode }) => {
       },
       body: JSON.stringify(data),
     });
+
     const responseData = await response.json();
+
     if (response.status === 200) {
       setAuthTokens(responseData);
       setUser(jwt_decode(responseData.access));
-      setUserLoggedIn(true);
+      localStorage.setItem("authTokens", JSON.stringify(responseData));
       navigate("files");
     } else {
       throw Error("Something went wrong");
     }
   };
 
-  const logoutHandler = () => {
-    setUserLoggedIn(false);
-  };
+  const logoutHandler = useCallback(async () => {
+    setAuthTokens(null);
+    setUser(null);
+    localStorage.removeItem("authTokens");
+    navigate("login");
+    // eslint-disable-next-line
+  }, []);
+
+  const updateTokenHandler = useCallback(async () => {
+    console.log("updating token");
+    const response = await fetch(`${API}/token/refresh`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ refresh: authTokens?.refresh }),
+    });
+
+    const responseData = await response.json();
+    if (response.status === 200) {
+      setAuthTokens(responseData);
+      setUser(jwt_decode(responseData.access));
+      localStorage.setItem("authTokens", JSON.stringify(responseData));
+    } else {
+      logoutHandler();
+    }
+  }, [authTokens?.refresh, logoutHandler]);
+
+  useEffect(() => {
+    const intervalID = setInterval(() => {
+      if (authTokens) {
+        updateTokenHandler();
+      }
+    }, 4000);
+
+    return () => clearInterval(intervalID);
+  }, [authTokens, loading, updateTokenHandler]);
 
   const authContextValue: AuthContextType = {
-    isLoggedIn: userLoggedIn,
     login: loginHandler,
     logout: logoutHandler,
     user: user,

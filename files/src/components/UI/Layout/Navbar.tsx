@@ -10,7 +10,7 @@ import {
 import { AuthContext } from "../../../context/authContext";
 
 export const Navbar = () => {
-  const { isLoggedIn, logout } = useContext(AuthContext);
+  const { user, logout } = useContext(AuthContext);
 
   return (
     <div className="hidden md:flex md:col-span-2 lg:col-span-1 bg-gray-900 h-full flex-col py-4 px-2 gap-12">
@@ -33,14 +33,15 @@ export const Navbar = () => {
         />
       </ul>
       <div className="order-last">
-        {isLoggedIn ? (
-          <span onClick={logout}>
-            <NavItem
-              title="Logout"
-              href="/"
-              icon={<ArrowRightOnRectangleIcon className="w-6 h-6" />}
-            />
-          </span>
+        {user ? (
+          <button
+            type="button"
+            onClick={logout}
+            className="text-slate-400 w-full p-3 flex gap-3 items-center rounded-lg hover:bg-gray-800 hover:shadow font-medium hover:text-slate-100"
+          >
+            <ArrowRightOnRectangleIcon className="w-6 h-6" />
+            <span>Logout</span>
+          </button>
         ) : (
           <NavItem
             title="Login"

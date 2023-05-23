@@ -7,7 +7,7 @@ import { AuthContext } from "../../../context/authContext";
 
 export const Layout: FC<LayoutProps> = ({ children }) => {
   const [openSidebar, setSidebar] = useState<boolean>(false);
-  const { isLoggedIn, user } = useContext(AuthContext);
+  const { user } = useContext(AuthContext);
 
   return (
     <div className="w-full grid grid-cols-1 md:grid-cols-8 lg:grid-cols-6 h-screen relative">
@@ -26,11 +26,7 @@ export const Layout: FC<LayoutProps> = ({ children }) => {
           <p className="text-sm font-medium text-slate-600">
             Hello,{" "}
             <span className="text-slate-800 capitalize">
-              {isLoggedIn
-                ? user?.username
-                  ? user.username
-                  : "..."
-                : "Random user"}
+              {user ? user.username : "Anonymous"}
             </span>
           </p>
         </div>
