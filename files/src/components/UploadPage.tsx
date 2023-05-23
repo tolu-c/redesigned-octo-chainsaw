@@ -25,9 +25,12 @@ export const UploadPage = () => {
   };
 
   return (
-    <div className="border p-4 flex flex-col gap-4 justify-start font-inter">
+    <div className="p-4 flex flex-col gap-4 justify-start font-inter">
       <h2 className="text-lg font-bold text-slate-950">Add Files</h2>
-      <form className="w-full" onSubmit={handleUpload}>
+      <form
+        className="w-full flex flex-col justify-start gap-3"
+        onSubmit={handleUpload}
+      >
         <div className="w-5/6 md:w-3/4 mx-auto">
           <label
             htmlFor="upload"
