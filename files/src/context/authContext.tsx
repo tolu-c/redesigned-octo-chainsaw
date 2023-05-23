@@ -86,11 +86,12 @@ export const AuthContextProvider = ({ children }: { children: ReactNode }) => {
   }, [authTokens?.refresh, logoutHandler]);
 
   useEffect(() => {
+    const twentyThreeHours = 1000 * 60 * 60 * 23;
     const intervalID = setInterval(() => {
       if (authTokens) {
         updateTokenHandler();
       }
-    }, 4000);
+    }, twentyThreeHours);
 
     return () => clearInterval(intervalID);
   }, [authTokens, loading, updateTokenHandler]);

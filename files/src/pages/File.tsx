@@ -3,7 +3,8 @@ import { FileDetail } from "../components/FileDetail";
 
 const File = () => {
   const { id } = useParams();
-  return <FileDetail fileID={id!} />;
+
+  return <FileDetail fileID={parseInt(id!)} />;
 };
 
 export default File;

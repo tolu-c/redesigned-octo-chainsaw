@@ -35,7 +35,7 @@ export default function App() {
           }
         />
         <Route
-          path="file/:id"
+          path="files/:id"
           element={
             <ProtectedRoute>
               <File />

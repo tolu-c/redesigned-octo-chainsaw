@@ -20,6 +20,12 @@ export interface FileItemProps {
   type: string;
 }
 
+export interface FileProps {
+  id: number;
+  file: string;
+  user: string;
+}
+
 export interface ButtonProps {
   type: "button" | "submit";
   title: string;
