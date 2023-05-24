@@ -1,27 +1,51 @@
-import { FormEvent, ChangeEvent } from "react";
+import { FormEvent, ChangeEvent, useContext, useState } from "react";
 import { Button } from "./UI/Form/Button";
+import { AuthContext } from "../context/authContext";
+import { useNavigate } from "react-router-dom";
+
+const API = process.env.REACT_APP_API;
 
 export const UploadPage = () => {
+  const [selectedFile, setSelectedFile] = useState<File | null>(null);
+  const { authToken, user } = useContext(AuthContext);
+  const navigate = useNavigate();
+
+  const fileUploadHandler = async (data: FormData) => {
+    const response = await fetch(`${API}/upload-file/`, {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${authToken?.access}`,
+      },
+      body: data,
+    });
+
+    const responseData = await response.json();
+    console.log(responseData);
+
+    if (response.ok) {
+      console.log("uploaded");
+      navigate(`/files/${responseData.id}`);
+    } else {
+      console.log("Error:", responseData);
+    }
+  };
+
   const handleUpload = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    const fileInput = document.getElementById("upload") as HTMLInputElement;
-    const file = fileInput.files?.[0];
+    if (selectedFile) {
+      const formData = new FormData();
+      formData.append("file", selectedFile);
+      formData.append("user", user!.user_id);
 
-    console.log({ submittedFile: file });
-
-    // if (file) {
-    //   const reader = new FileReader();
-    //   reader.onload = (e) => {
-    //     const fileContent = e.target?.result;
-    //     console.log(fileContent);
-    //   };
-    //   reader.readAsText(file);
-    // }
+      fileUploadHandler(formData);
+    } else {
+      // Handle case when no file is selected
+    }
   };
 
   const handleFileChange = (event: ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
-    console.log(file);
+    setSelectedFile(file || null);
   };
 
   return (
@@ -30,6 +54,7 @@ export const UploadPage = () => {
       <form
         className="w-full flex flex-col justify-start gap-3"
         onSubmit={handleUpload}
+        encType="multipart/form-data"
       >
         <div className="w-5/6 md:w-3/4 mx-auto">
           <label

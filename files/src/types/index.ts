@@ -49,6 +49,11 @@ export interface RegisterData {
   email: string;
   password: string;
 }
+
+export interface UploadData {
+  file: File;
+  user: string;
+}
 export interface AuthContextType {
   login: (data: LoginData) => void;
   logout: () => void;
