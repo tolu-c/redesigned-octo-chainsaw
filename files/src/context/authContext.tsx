@@ -19,6 +19,7 @@ export const AuthContext = createContext<AuthContextType>({
   logout: () => {},
   user: null,
   authToken: null,
+  error: null,
 });
 
 const API = process.env.REACT_APP_API;
@@ -35,6 +36,7 @@ export const AuthContextProvider = ({ children }: { children: ReactNode }) => {
     authTokensString ? JSON.parse(authTokensString) : null
   );
   const [loading, setLoading] = useState<boolean>(true);
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
   const loginHandler = async (data: LoginData) => {
     const response = await fetch(`${API}/token/`, {
@@ -53,7 +55,7 @@ export const AuthContextProvider = ({ children }: { children: ReactNode }) => {
       localStorage.setItem("authTokens", JSON.stringify(responseData));
       navigate("files");
     } else {
-      throw Error("Something went wrong");
+      setErrorMessage(responseData.detail);
     }
   };
 
@@ -106,6 +108,7 @@ export const AuthContextProvider = ({ children }: { children: ReactNode }) => {
     logout: logoutHandler,
     user: user,
     authToken: authTokens,
+    error: errorMessage,
   };
 
   return (

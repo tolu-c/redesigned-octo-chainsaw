@@ -54,6 +54,7 @@ export interface AuthContextType {
   logout: () => void;
   user: UserToken | null;
   authToken: AuthTokenProps | null;
+  error: string | null;
 }
 
 export interface ProtectedRoutesProps {

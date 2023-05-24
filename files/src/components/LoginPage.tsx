@@ -6,7 +6,7 @@ import { AuthContext } from "../context/authContext";
 export const LoginPage = () => {
   const usernameRef = useRef<HTMLInputElement>(null);
   const passwordRef = useRef<HTMLInputElement>(null);
-  const { login } = useContext(AuthContext);
+  const { login, error } = useContext(AuthContext);
 
   const handleLogin = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -39,6 +39,7 @@ export const LoginPage = () => {
               id="username"
               name="username"
               ref={usernameRef}
+              required
               className="rounded-md shadow focus:shadow-md focus:outline-none focus:border focus:border-slate-950 focus:ring-1 focus:ring-slate-950"
             />
           </div>
@@ -54,12 +55,14 @@ export const LoginPage = () => {
               id="password"
               name="password"
               ref={passwordRef}
+              required
               className="rounded-md shadow focus:shadow-md focus:outline-none focus:border focus:border-slate-950 focus:ring-1 focus:ring-slate-950"
             />
           </div>
           <div className="w-full flex flex-col gap-2">
             <Button type="submit" title="Sign in" />
           </div>
+          {error && <p className="text-sm text-red-900 font-medium">{error}</p>}
         </form>
         <div className="">
           <p className="text-sm font-normal text-slate-700">
