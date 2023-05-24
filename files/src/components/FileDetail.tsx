@@ -1,12 +1,10 @@
 import { AuthContext } from "../context/authContext";
-import { fileData } from "../data/files";
 import { useContext, useState, useEffect } from "react";
 import { FileProps } from "../types";
 
 const API = process.env.REACT_APP_API;
 
 export const FileDetail = ({ fileID }: { fileID: number }) => {
-  // const filteredFile = fileData.filter((file) => file.name === fileID)[0];
   const [files, setFiles] = useState<FileProps[]>([]);
   const { authToken } = useContext(AuthContext);
 
@@ -14,6 +12,7 @@ export const FileDetail = ({ fileID }: { fileID: number }) => {
 
   useEffect(() => {
     getFiles();
+    // eslint-disable-next-line
   }, []);
 
   const getFiles = async () => {

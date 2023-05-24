@@ -1,6 +1,5 @@
 import { FC } from "react";
-// import FileViewer from "react-file-viewer";
-import { FileItemProps, FileProps } from "../types";
+import { FileProps } from "../types";
 import { Link } from "react-router-dom";
 
 export const FileItem: FC<FileProps> = ({ id, file, user }) => {

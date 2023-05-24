@@ -66,7 +66,6 @@ export const AuthContextProvider = ({ children }: { children: ReactNode }) => {
   }, []);
 
   const updateTokenHandler = useCallback(async () => {
-    console.log("updating token");
     const response = await fetch(`${API}/token/refresh`, {
       method: "POST",
       headers: {
@@ -83,9 +82,15 @@ export const AuthContextProvider = ({ children }: { children: ReactNode }) => {
     } else {
       logoutHandler();
     }
-  }, [authTokens?.refresh, logoutHandler]);
+    if (loading) {
+      setLoading(false);
+    }
+  }, [authTokens?.refresh, logoutHandler, loading]);
 
   useEffect(() => {
+    if (loading) {
+      updateTokenHandler();
+    }
     const twentyThreeHours = 1000 * 60 * 60 * 23;
     const intervalID = setInterval(() => {
       if (authTokens) {
