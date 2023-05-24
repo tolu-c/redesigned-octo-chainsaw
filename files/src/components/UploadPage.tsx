@@ -20,7 +20,6 @@ export const UploadPage = () => {
     });
 
     const responseData = await response.json();
-    console.log(responseData);
 
     if (response.ok) {
       console.log("uploaded");
@@ -38,8 +37,6 @@ export const UploadPage = () => {
       formData.append("user", user!.user_id);
 
       fileUploadHandler(formData);
-    } else {
-      // Handle case when no file is selected
     }
   };
 
