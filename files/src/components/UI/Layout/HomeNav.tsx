@@ -1,7 +1,10 @@
 import { Link, NavLink } from "react-router-dom";
 import { ArrowSmallRightIcon } from "@heroicons/react/20/solid";
+import { useContext } from "react";
+import { AuthContext } from "../../../context/authContext";
 
 export const NavBar = () => {
+  const { user } = useContext(AuthContext);
   return (
     <nav className="flex justify-between gap-12 items-center p-6">
       <h3 className="text-3xl md:text-4xl text-slate-950 font-bold">
@@ -48,13 +51,22 @@ export const NavBar = () => {
         </ul>
       </nav>
       <div>
-        <Link
-          to="/login"
-          className="flex items-center gap-1 text-slate-800 font-medium hover:font-bold"
-        >
-          <span>Login</span>
-          <ArrowSmallRightIcon className="h-4 w-4" />
-        </Link>
+        {user ? (
+          <Link
+            to="/files"
+            className="flex items-center gap-1 text-slate-800 font-medium hover:font-bold"
+          >
+            <span>Your Files</span>
+          </Link>
+        ) : (
+          <Link
+            to="/login"
+            className="flex items-center gap-1 text-slate-800 font-medium hover:font-bold"
+          >
+            <span>Login</span>
+            <ArrowSmallRightIcon className="h-4 w-4" />
+          </Link>
+        )}
       </div>
     </nav>
   );

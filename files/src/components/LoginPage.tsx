@@ -18,7 +18,7 @@ export const LoginPage = () => {
   };
 
   return (
-    <div className="flex gap-4 justify-center">
+    <div className="flex gap-4 w-full h-screen justify-center items-center">
       <div className="flex flex-col gap-8 w-full items-center">
         <h2 className="text-slate-950 text-lg md:text-xl font-semibold w-max">
           Sign in to your account

@@ -3,7 +3,7 @@ import leke from "../images/leke.jpg";
 
 export const HomePage = () => {
   return (
-    <div className="h-full flex justify-center items-center">
+    <div className="h-screen w-full flex justify-center items-center">
       <div className="w-5/6 md:w-3/4 flex flex-col gap-8 items-center p-4">
         <div className="w-52 h-52 md:w-64 md:h-64 overflow-hidden rounded-full border shadow">
           <img

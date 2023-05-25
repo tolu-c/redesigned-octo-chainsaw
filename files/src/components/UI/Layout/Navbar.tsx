@@ -18,12 +18,12 @@ export const Navbar = () => {
       <ul className="w-full flex flex-col gap-4">
         <NavItem
           title="Home"
-          href="/"
+          href="/home"
           icon={<FolderIcon className="w-6 h-6" />}
         />
         <NavItem
           title="Files"
-          href="files"
+          href=""
           icon={<FolderOpenIcon className="w-6 h-6" />}
         />
         <NavItem

@@ -54,7 +54,7 @@ export const SignUp = () => {
   };
 
   return (
-    <div className="flex gap-4 justify-center">
+    <div className="flex gap-4 justify-center items-center w-full h-screen">
       <div className="flex flex-col gap-8 w-full items-center">
         <h2 className="text-slate-950 text-lg md:text-xl font-semibold w-max">
           Create a new account

@@ -20,7 +20,7 @@ export default function App() {
         <Route path="login" element={<Login />} />
         <Route path="register" element={<Register />} />
         {user && <Route path="files/*" element={<FileIndex />} />}
-        {!user && <Route path="home/*" element={<HomeIndex />} />}
+        <Route path="home/*" element={<HomeIndex />} />
         <Route path="*" element={<PageNotFound />} />
       </Routes>
     </Suspense>
