@@ -1,12 +1,13 @@
 import { FC } from "react";
 import { LayoutProps } from "../../../types";
+import { NavBar } from "./HomeNav";
 
 export const HomeLayout: FC<LayoutProps> = ({ children }) => {
   return (
-    <div>
-      <nav>nav item</nav>
+    <div className="w-full">
+      <NavBar />
       {children}
-      <footer></footer>
+      <footer className="w-full text-center">All Rights Reserved</footer>
     </div>
   );
 };

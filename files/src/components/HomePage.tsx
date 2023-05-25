@@ -31,7 +31,7 @@ export const HomePage = () => {
           to="home"
           className="text-lg text-center font-bold text-slate-800 bg-transparent border border-slate-800 hover:bg-slate-950 hover:text-slate-100 p-4 px-6 rounded-lg w-max"
         >
-          Go to your files
+          Go to website
         </Link>
       </div>
     </div>
