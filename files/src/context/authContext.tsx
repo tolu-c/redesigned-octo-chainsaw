@@ -1,10 +1,4 @@
-import {
-  createContext,
-  ReactNode,
-  useCallback,
-  useEffect,
-  useState,
-} from "react";
+import { createContext, ReactNode, useEffect, useState } from "react";
 import {
   AuthContextType,
   AuthTokenProps,
@@ -35,7 +29,6 @@ export const AuthContextProvider = ({ children }: { children: ReactNode }) => {
   const [authTokens, setAuthTokens] = useState<AuthTokenProps | null>(() =>
     authTokensString ? JSON.parse(authTokensString) : null
   );
-  const [loading, setLoading] = useState<boolean>(true);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
   const loginHandler = async (data: LoginData) => {
@@ -59,15 +52,15 @@ export const AuthContextProvider = ({ children }: { children: ReactNode }) => {
     }
   };
 
-  const logoutHandler = useCallback(async () => {
+  const logoutHandler = async () => {
     setAuthTokens(null);
     setUser(null);
     localStorage.removeItem("authTokens");
-    navigate("login");
+    navigate("home");
     // eslint-disable-next-line
-  }, []);
+  };
 
-  const updateTokenHandler = useCallback(async () => {
+  const updateTokenHandler = async () => {
     const response = await fetch(`${API}/token/refresh`, {
       method: "POST",
       headers: {
@@ -77,6 +70,7 @@ export const AuthContextProvider = ({ children }: { children: ReactNode }) => {
     });
 
     const responseData = await response.json();
+
     if (response.status === 200) {
       setAuthTokens(responseData);
       setUser(jwt_decode(responseData.access));
@@ -84,15 +78,9 @@ export const AuthContextProvider = ({ children }: { children: ReactNode }) => {
     } else {
       logoutHandler();
     }
-    if (loading) {
-      setLoading(false);
-    }
-  }, [authTokens?.refresh, logoutHandler, loading]);
+  };
 
   useEffect(() => {
-    if (loading) {
-      updateTokenHandler();
-    }
     const twentyThreeHours = 1000 * 60 * 60 * 23;
     const intervalID = setInterval(() => {
       if (authTokens) {
@@ -101,7 +89,8 @@ export const AuthContextProvider = ({ children }: { children: ReactNode }) => {
     }, twentyThreeHours);
 
     return () => clearInterval(intervalID);
-  }, [authTokens, loading, updateTokenHandler]);
+    // eslint-disable-next-line
+  }, [authTokens]);
 
   const authContextValue: AuthContextType = {
     login: loginHandler,

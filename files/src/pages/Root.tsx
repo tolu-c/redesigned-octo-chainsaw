@@ -1,7 +1,7 @@
 import { HomePage } from "../components/HomePage";
 
-const Home = () => {
+const RootPage = () => {
   return <HomePage />;
 };
 
-export default Home;
+export default RootPage;

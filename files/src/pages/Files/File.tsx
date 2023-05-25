@@ -1,5 +1,5 @@
 import { useParams } from "react-router-dom";
-import { FileDetail } from "../components/FileDetail";
+import { FileDetail } from "../../components/FileDetail";
 
 const File = () => {
   const { id } = useParams();
